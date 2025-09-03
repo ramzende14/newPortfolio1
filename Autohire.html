@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AutoHire</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { 
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #f1f5f9;
+      padding: 20px;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    body.light {
+      background: linear-gradient(135deg, #f9fafb, #e5e7eb);
+      color: #1e293b;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+    }
+
+    .header h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+
+    body.light .header h1 {
+      color: #1e293b;
+    }
+
+    .header p {
+      font-size: 18px;
+      color: #cbd5e1;
+    }
+
+    body.light .header p {
+      color: #475569;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 8px 15px;
+      border-radius: 8px;
+      background: #2563eb;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    body.light .theme-toggle {
+      background: #1e293b;
+      color: #f1f5f9;
+    }
+
+    .section {
+      max-width: 900px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      padding: 25px;
+      margin-bottom: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s, background 0.5s;
+    }
+
+    .section:hover {
+      transform: translateY(-5px);
+    }
+
+    body.light .section {
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .section h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #93c5fd;
+      border-left: 4px solid #3b82f6;
+      padding-left: 10px;
+    }
+
+    body.light .section h2 {
+      color: #1e3a8a;
+      border-left-color: #1d4ed8;
+    }
+
+    .section p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+
+    body.light .section p {
+      color: #334155;
+    }
+
+    .section ul {
+      margin-left: 20px;
+      margin-top: 10px;
+    }
+
+    .section ul li {
+      margin-bottom: 8px;
+      font-size: 16px;
+      color: #f8fafc;
+    }
+
+    body.light .section ul li {
+      color: #1e293b;
+    }
+
+    .buttons {
+      text-align: center;
+      margin-top: 25px;
+    }
+
+    .buttons a {
+      display: inline-block;
+      margin: 8px;
+      text-decoration: none;
+      padding: 12px 25px;
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      color: #fff;
+      border-radius: 8px;
+      font-weight: 500;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+      transition: all 0.3s ease;
+    }
+
+    .buttons a:hover {
+      background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
+      transform: translateY(-3px);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 50px;
+      color: #94a3b8;
+    }
+
+    body.light footer {
+      color: #475569;
+    }
+
+    footer span {
+      color: #38bdf8;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      .section {
+        padding: 20px;
+      }
+      .header h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>AutoHire</h1>
+    <p>AI Based Job Screening System</p>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
+  </div>
+
+  <div class="section">
+    <h2>Project Overview</h2>
+    <p>
+      AI-Powered Job Screening System – Built with Spring Boot and Spring AI, the system matches resumes with job descriptions and assigns a score. If the match score is 80% or above, it automatically sends a shortlisted email to the candidate, making the screening process faster and more efficient.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Features</h2>
+    <ul>
+      <li>Resume & Job Description Matching using Spring AI</li>
+      <li>Scoring System to evaluate candidate-job compatibility</li>
+      <li>Automatic Shortlisting for candidates with 80%+ score</li>
+      <li>Email Notifications to shortlisted candidates</li>
+      <li>Database integration for storing resumes and job details</li>
+      <li>Responsive web interface for recruiters</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Technologies Used</h2>
+    <ul>
+      <li>Backend: Spring Boot (Java)</li>
+      <li>Database: MySQL</li>
+      <li>AI Integration: Spring AI with Ollama & Azure</li>
+      <li>REST APIs for resume–job matching</li>
+      <li>API Testing: Postman</li>
+    </ul>
+  </div>
+
+  <div class="buttons">
+    <a href="https://github.com/ramzende14" target="_blank">
+      <i class="fab fa-github"></i> View on GitHub
+    </a>
+  </div>
+
+  <footer>
+    &copy; 2025 <span>Ramkrushna Zende</span> | AutoHire
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('light');
+      const btn = document.querySelector('.theme-toggle');
+      if (document.body.classList.contains('light')) {
+        btn.textContent = "🌙 Dark";
+      } else {
+        btn.textContent = "☀️ Light";
+      }
+    }
+  </script>
+
+</body>
+</html>

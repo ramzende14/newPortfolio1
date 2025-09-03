@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shaley Poshan Aahar – Android Application</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg: #f7fafc;
+      --text: #0f172a;
+      --muted: #475569;
+      --card: rgba(255,255,255,0.9);
+      --card-border: rgba(15,23,42,0.08);
+      --accent: #1e40af;
+      --accent-2: #2563eb;
+      --chip-bg: #e2e8f0;
+      --chip-text: #0f172a;
+    }
+    html[data-theme="dark"] {
+      --bg: linear-gradient(135deg, #0f172a, #1e293b);
+      --text: #e8eef7;
+      --muted: #cbd5e1;
+      --card: rgba(255,255,255,0.08);
+      --card-border: rgba(255,255,255,0.12);
+      --accent: #93c5fd;
+      --accent-2: #3b82f6;
+      --chip-bg: rgba(148,163,184,0.2);
+      --chip-text: #e2e8f0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 24px;
+      transition: background 0.4s ease, color 0.3s ease;
+      min-height: 100vh;
+    }
+
+    .container { max-width: 1060px; margin: 0 auto; }
+
+    .header { text-align: center; margin-bottom: 42px; position: relative; }
+    .brand { font-size: 38px; font-weight: 800; }
+    .subtitle { margin-top: 8px; font-size: 18px; color: var(--muted); }
+
+    .toggle-wrap { position: absolute; top: 0; right: 0; }
+    .toggle {
+      appearance: none; width: 56px; height: 32px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      position: relative; cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0,0,0,.15);
+    }
+    .toggle:after {
+      content: "\f185";
+      font-family: "Font Awesome 6 Free"; font-weight: 900;
+      position: absolute; top: 50%; transform: translateY(-50%);
+      left: 4px; width: 24px; height: 24px;
+      border-radius: 50%; display: grid; place-items: center;
+      background: white; color: #0f172a;
+      transition: left .25s ease;
+    }
+    html[data-theme="dark"] .toggle:after {
+      content: "\f186"; left: 28px;
+      background: #0b1220; color: #e2e8f0;
+    }
+
+    .section {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 26px;
+      margin-bottom: 26px;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+    }
+    .section h2 {
+      font-size: 22px; margin-bottom: 12px;
+      color: var(--accent);
+      border-left: 4px solid var(--accent-2);
+      padding-left: 10px;
+    }
+    .section ul { margin-left: 18px; margin-top: 12px; }
+    .section li { margin-bottom: 8px; font-size: 16px; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .chip {
+      font-size: 13px; padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--chip-bg);
+      color: var(--chip-text);
+    }
+
+    .buttons { display: flex; justify-content: center; gap: 12px; margin-top: 18px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      text-decoration: none; padding: 12px 18px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-2), #1e3a8a);
+      color: #fff; font-weight: 600;
+      box-shadow: 0 8px 20px rgba(0,0,0,.3);
+    }
+
+    footer { text-align: center; font-size: 14px; margin-top: 34px; color: var(--muted); }
+    footer span { font-weight: 700; color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header class="header">
+      <h1 class="brand">Shaley Poshan Aahar</h1>
+      <p class="subtitle">Android Application • Flutter • Firebase • Dart</p>
+      <div class="toggle-wrap"><button id="themeToggle" class="toggle"></button></div>
+    </header>
+
+    <section class="section">
+      <h2>Project Overview</h2>
+      <p>
+        <strong>Shaley Poshan Aahar</strong> is a mobile application developed to digitize and streamline the 
+        Mid-Day Meal Program in government and Marathi medium schools.  
+        It helps school staff efficiently track meal distribution, manage food stock, and auto-generate reports 
+        based on student attendance.
+      </p>
+      <div class="chips">
+        <span class="chip"><i class="fa-solid fa-utensils"></i> Mid-Day Meal</span>
+        <span class="chip"><i class="fa-solid fa-user-check"></i> Attendance</span>
+        <span class="chip"><i class="fa-solid fa-database"></i> Firebase</span>
+        <span class="chip"><i class="fa-solid fa-mobile"></i> Android</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Features</h2>
+      <ul>
+        <li><strong>Student Attendance-Based Calculation:</strong> Auto food quantity based on present students.</li>
+        <li><strong>Meal Entry & Verification:</strong> Daily input with teacher/admin verification.</li>
+        <li><strong>Stock Management:</strong> Track grains, pulses, vegetables & remaining stock.</li>
+        <li><strong>Auto Report Generation:</strong> Daily, weekly & monthly reports.</li>
+        <li><strong>Secure Login:</strong> Firebase Authentication for teachers/admins.</li>
+        <li><strong>Firebase Realtime DB:</strong> For meals, attendance & stock data.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Technologies Used</h2>
+      <ul>
+        <li><strong>Framework:</strong> Flutter (Dart)</li>
+        <li><strong>Database:</strong> Firebase Realtime Database</li>
+        <li><strong>Authentication:</strong> Firebase Auth</li>
+        <li><strong>Platform:</strong> Android</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>My Contributions</h2>
+      <ul>
+        <li>Designed and developed complete UI using Flutter.</li>
+        <li>Integrated Firebase Realtime Database & Authentication.</li>
+        <li>Implemented logic for auto meal calculation from attendance.</li>
+        <li>Built secure login & tested app in real school use cases.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Impact</h2>
+      <ul>
+        <li>Eliminated manual registers for mid-day meal records.</li>
+        <li>Reduced errors with automated attendance-based logic.</li>
+        <li>Saved staff time, enabling focus on implementation.</li>
+        <li>Appreciated by school principals for simplicity & usefulness.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Get the Code</h2>
+      <div class="buttons">
+        <a class="btn" href="https://github.com/ramzende14/Shaley-Poshan-Aahar-App.git" target="_blank">
+          <i class="fa-brands fa-github"></i> View on GitHub
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      &copy; 2025 <span>Ramkrushna Zende</span> | Shaley Poshan Aahar – Android Application
+    </footer>
+  </div>
+
+  <script>
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    (function initTheme(){
+      const saved = localStorage.getItem('poshan-theme');
+      if(saved){ root.setAttribute('data-theme', saved); }
+    })();
+    toggle.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('poshan-theme', next);
+    });
+  </script>
+</body>
+</html>

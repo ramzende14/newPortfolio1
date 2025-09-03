@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Connectify – Smart Contact Manager</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      /* Light theme */
+      --bg: #f7fafc;
+      --text: #0f172a;
+      --muted: #475569;
+      --card: rgba(255,255,255,0.9);
+      --card-border: rgba(15,23,42,0.08);
+      --accent: #1e40af;
+      --accent-2: #2563eb;
+      --chip-bg: #e2e8f0;
+      --chip-text: #0f172a;
+    }
+    /* Dark theme vars */
+    html[data-theme="dark"] {
+      --bg: linear-gradient(135deg, #0f172a, #1e293b);
+      --text: #e8eef7;
+      --muted: #cbd5e1;
+      --card: rgba(255,255,255,0.08);
+      --card-border: rgba(255,255,255,0.12);
+      --accent: #93c5fd;
+      --accent-2: #3b82f6;
+      --chip-bg: rgba(148,163,184,0.2);
+      --chip-text: #e2e8f0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 24px;
+      transition: background 0.4s ease, color 0.3s ease;
+      min-height: 100vh;
+    }
+
+    .container { max-width: 1060px; margin: 0 auto; }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 42px;
+      position: relative;
+    }
+    .brand {
+      font-size: 38px;
+      letter-spacing: .5px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+    .subtitle {
+      margin-top: 8px;
+      font-size: 18px;
+      color: var(--muted);
+    }
+
+    /* Theme toggle */
+    .toggle-wrap {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    .toggle {
+      appearance: none;
+      width: 56px; height: 32px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      position: relative;
+      cursor: pointer;
+      outline: none;
+      transition: background .2s ease, border-color .2s ease;
+      box-shadow: 0 6px 20px rgba(0,0,0,.15);
+      backdrop-filter: blur(6px);
+    }
+    .toggle:after {
+      content: "\f185";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      left: 4px;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      background: white;
+      color: #0f172a;
+      transition: left .25s ease, transform .25s ease;
+    }
+    html[data-theme="dark"] .toggle:after {
+      content: "\f186"; /* moon */
+      left: 28px;
+      transform: translateY(-50%) rotate(360deg);
+      background: #0b1220;
+      color: #e2e8f0;
+      border: 1px solid var(--card-border);
+    }
+
+    /* Card sections */
+    .section {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 26px;
+      margin-bottom: 26px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .2s ease;
+    }
+    .section:hover { transform: translateY(-4px); }
+
+    .section h2 {
+      font-size: 22px;
+      margin-bottom: 12px;
+      color: var(--accent);
+      border-left: 4px solid var(--accent-2);
+      padding-left: 10px;
+      line-height: 1.1;
+    }
+    .section p { line-height: 1.7; font-size: 16px; color: var(--text); }
+    .muted { color: var(--muted); }
+
+    .section ul { margin-left: 18px; margin-top: 12px; }
+    .section li { margin-bottom: 8px; font-size: 16px; }
+
+    /* Chips */
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .chip {
+      font-size: 13px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--chip-bg);
+      color: var(--chip-text);
+      border: 1px solid var(--card-border);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .shot {
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 6px 16px rgba(0,0,0,.15);
+      background: #0b1220;
+    }
+    .shot img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+      filter: saturate(0.95);
+      transition: transform .35s ease, filter .35s ease;
+    }
+    .shot:hover img { transform: scale(1.03); filter: saturate(1.05); }
+
+    /* Buttons */
+    .buttons { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      border: 1px solid var(--card-border);
+      background: linear-gradient(135deg, var(--accent-2), #1e3a8a);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(0,0,0,.3);
+      transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+    }
+    .btn.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--card-border);
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(0,0,0,.35); }
+    .btn.secondary:hover { opacity: .9; }
+
+    footer {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 34px;
+      color: var(--muted);
+    }
+    footer span { font-weight: 700; color: var(--accent); }
+
+    @media (max-width: 900px) {
+      .gallery { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .gallery { grid-template-columns: 1fr; }
+      .brand { font-size: 30px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header class="header">
+      <h1 class="brand">Connectify</h1>
+      <p class="subtitle">Smart Contact Manager • Spring MVC + Security • MySQL • Thymeleaf • Cloudinary</p>
+
+      <div class="toggle-wrap">
+        <button id="themeToggle" class="toggle" aria-label="Toggle theme"></button>
+      </div>
+    </header>
+
+    <section class="section">
+      <h2>Project Overview</h2>
+      <p>
+        <strong>Connectify</strong> is a smart contact management application that helps users securely store, search, and manage contacts with rich features like favorites, pagination, and theme switching. 
+        Built using <strong>Spring MVC</strong>, <strong>Spring Security</strong>, <strong>Thymeleaf</strong>, and <strong>MySQL</strong>, it integrates <strong>Cloudinary</strong> to store contact images efficiently on the cloud. 
+        Authentication supports <strong>Email, Google, and GitHub</strong> sign-ups for a seamless and secure onboarding experience.
+      </p>
+      <div class="chips" aria-label="Highlights">
+        <span class="chip"><i class="fa-solid fa-lock"></i> Secure Auth</span>
+        <span class="chip"><i class="fa-solid fa-image"></i> Cloud Images</span>
+        <span class="chip"><i class="fa-solid fa-magnifying-glass"></i> Fast Search</span>
+        <span class="chip"><i class="fa-regular fa-star"></i> Favorites</span>
+        <span class="chip"><i class="fa-solid fa-circle-half-stroke"></i> Dark/Light</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Features</h2>
+      <ul>
+        <li>Add, update, and delete contacts with profile images stored on <strong>Cloudinary</strong>.</li>
+        <li><strong>Mark as Favorite</strong> for quick access and personalized lists.</li>
+        <li><strong>Search & Pagination</strong> for fast navigation through large contact sets.</li>
+        <li><strong>Dark/Light themes</strong> with one-click toggle for better accessibility.</li>
+        <li><strong>Secure authentication</strong> via Spring Security (Email/Google/GitHub).</li>
+        <li>Form validation, error handling, and responsive UI with Thymeleaf.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Technologies Used</h2>
+      <ul>
+        <li><strong>Backend / MVC:</strong> Spring MVC, Spring Boot</li>
+        <li><strong>Security:</strong> Spring Security (Email, Google, GitHub OAuth)</li>
+        <li><strong>View Layer:</strong> Thymeleaf, HTML, CSS</li>
+        <li><strong>Database:</strong> MySQL (JPA/Hibernate)</li>
+        <li><strong>Media Storage:</strong> Cloudinary (contact images)</li>
+        <li><strong>Build & Tools:</strong> Maven/Gradle, Postman</li>
+        <li><strong>Deployment (optional):</strong> Any Java-friendly cloud (Railway/Render/Azure)</li>
+      </ul>
+    </section>
+
+   
+
+    <section class="section">
+      <h2>Get the Code</h2>
+      <p class="muted">Explore the source code and run locally.</p>
+      <div class="buttons">
+        <a class="btn" href="https://github.com/ramzende14" target="_blank" rel="noopener">
+          <i class="fa-brands fa-github"></i> View on GitHub
+        </a>
+        <a class="btn secondary" href="#" onclick="alert('Live demo link coming soon!'); return false;">
+          <i class="fa-solid fa-link"></i> Live Demo
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      &copy; 2025 <span>Ramkrushna Zende</span> | Connectify – Smart Contact Manager
+    </footer>
+  </div>
+
+  <script>
+    // Theme toggle: remembers user choice
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+
+    // Load saved theme or system preference
+    (function initTheme(){
+      const saved = localStorage.getItem('connectify-theme');
+      if(saved){
+        document.documentElement.setAttribute('data-theme', saved);
+      } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+      }
+    })();
+
+    toggle.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('connectify-theme', next);
+    });
+  </script>
+</body>
+</html>
